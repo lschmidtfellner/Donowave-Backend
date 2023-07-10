@@ -46,6 +46,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -74,15 +76,19 @@ WSGI_APPLICATION = 'fundraiser.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+import dj_database_url
+# import django_heroku
+
+import environ  
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+ 
+DATABASE_URL=env('DATABASE_URL')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'campaigns',
-        'USER': 'campaigns_admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost'
-    }
+    'default': 
+        dj_database_url.config('DATABASE_URL')
 }
 
 
@@ -127,3 +133,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+django_heroku.settings(locals())
