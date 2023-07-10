@@ -16,11 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from campaigns.views import UserCreate
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('campaigns.urls')),
-    path('register/', UserCreate.as_view(), name='user-register'),
+    path('api/', include('campaigns.urls')),  # change this line
 ]
