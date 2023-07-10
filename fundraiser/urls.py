@@ -21,6 +21,6 @@ from campaigns.views import UserCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('campaigns/', include('campaigns.urls')),
+    path('api/', include('campaigns.urls')),
     path('register/', UserCreate.as_view(), name='user-register'),
 ]

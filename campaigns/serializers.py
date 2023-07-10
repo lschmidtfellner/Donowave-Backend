@@ -1,4 +1,3 @@
-# serializers.py in your campaigns app
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Campaign, Donation, UserProfile
@@ -26,7 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         UserProfile.objects.create(user=user, **profile_data)
         return user
-
 
 class CampaignSerializer(serializers.ModelSerializer):
     class Meta:
