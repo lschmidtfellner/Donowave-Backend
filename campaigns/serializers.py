@@ -18,15 +18,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_data = validated_data.pop('userprofile')
-        user = User.objects.create_user(**validated_data)
+        password = validated_data.pop('password', None)
+        user = User(**validated_data)
+        if password is not None:
+            user.set_password(password)
+        user.is_staff = True
+        user.save()
         UserProfile.objects.create(user=user, **profile_data)
         return user
 
-    def create(self, validated_data):
-        profile_data = validated_data.pop('userprofile')
-        user = User.objects.create_user(**validated_data)
-        UserProfile.objects.create(user=user, **profile_data)
-        return user
 
 class CampaignSerializer(serializers.ModelSerializer):
     class Meta:

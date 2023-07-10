@@ -6,7 +6,7 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Campaign, Donation
-from .serializers import CampaignSerializer, DonationSerializer
+from .serializers import CampaignSerializer, DonationSerializer, UserSerializer
 
 
 class CampaignViewSet(viewsets.ModelViewSet):
@@ -18,14 +18,18 @@ class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
 
+    def perform_create(self, serializer):
+        donation = serializer.save()
+        campaign = donation.campaign
+        campaign.raised_amount += donation.amount
+        campaign.save()
 
 class UserCreate(APIView):
-
     def post(self, request, format='json'):
-        form = UserCreationForm(request.data)
-        if form.is_valid():
-            user = form.save()
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
             if user:
-                return Response(status=status.HTTP_201_CREATED)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -38,6 +38,7 @@ class Campaign(models.Model):
     description = models.TextField()
     goal_amount = models.DecimalField(max_digits=15, decimal_places=2)
     raised_amount = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    web3_raised_amount = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     deadline = models.DateTimeField()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
