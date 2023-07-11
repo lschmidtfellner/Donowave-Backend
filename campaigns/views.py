@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.status import HTTP_200_OK
 from .models import Campaign, Donation
 from .serializers import CampaignSerializer, DonationSerializer, UserSerializer
 
@@ -11,23 +13,22 @@ class UserCreate(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = []  # No permission for registration view
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def perform_create(self, serializer):
+        user = serializer.save()
+        Token.objects.create(user=user)
 
-    @action(detail=True, methods=['get'])
-    def donations(self, request, pk=None):
-        user = self.get_object()
-        donations = Donation.objects.filter(user=user)
-        serializer = DonationSerializer(donations, many=True)
-        return Response(serializer.data)
-
-    @action(detail=True, methods=['get'])
-    def campaigns(self, request, pk=None):
-        user = self.get_object()
-        campaigns = Campaign.objects.filter(user=user)
-        serializer = CampaignSerializer(campaigns, many=True)
-        return Response(serializer.data)
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email
+        }, status=HTTP_200_OK)
 
 class CampaignViewSet(viewsets.ModelViewSet):
     queryset = Campaign.objects.all()
@@ -39,13 +40,6 @@ class CampaignViewSet(viewsets.ModelViewSet):
         else:
             self.permission_classes = [AllowAny,]
         return super(CampaignViewSet, self).get_permissions()
-
-    @action(detail=True, methods=['get'])
-    def donations(self, request, pk=None):
-        campaign = self.get_object()
-        donations = Donation.objects.filter(campaign=campaign)
-        serializer = DonationSerializer(donations, many=True)
-        return Response(serializer.data)
 
 class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
