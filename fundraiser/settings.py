@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'campaigns',
 ]
 
@@ -84,29 +85,23 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
  
-DATABASE_URL="postgres://irrermhqroyqpi:210531bc7836f8f0d080e4f036b80771a544cc44d5705765e217e8e3c24b8bb7@ec2-3-217-146-37.compute-1.amazonaws.com:5432/d25snvnqch29ki"
+DATABASE_URL=env('DATABASE_URL')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'campaigns',
-        'USER': 'campaigns_admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': 
+        dj_database_url.config('DATABASE_URL')
 }
 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
 
 
 # Password validation
