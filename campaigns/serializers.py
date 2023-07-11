@@ -29,7 +29,15 @@ class UserSerializer(serializers.ModelSerializer):
 class CampaignSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campaign
-        fields = '__all__'  # or list the field names if you want to be selective
+        fields = [
+            'id', 'title', 'description', 'goal_amount', 'deadline', 'category',
+            'raised_amount', 'web3_raised_amount', 'created_at', 'updated_at'
+        ]
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super(CampaignSerializer, self).create(validated_data)
+
 
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
