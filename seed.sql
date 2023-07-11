@@ -1,0 +1,93 @@
+-- Inserting data into auth_user table
+INSERT INTO auth_user (username, password, is_superuser, email, is_staff, is_active, date_joined, first_name, last_name)
+VALUES 
+       ('user5', 'password5', false, 'user5@email.com', false, true, current_timestamp, 'User', 'Five'),
+       ('user6', 'password6', false, 'user6@email.com', false, true, current_timestamp, 'User', 'Six'),
+       ('user7', 'password7', false, 'user7@email.com', false, true, current_timestamp, 'User', 'Seven'),
+       ('user8', 'password8', false, 'user8@email.com', false, true, current_timestamp, 'User', 'Eight'),
+       ('user9', 'password9', false, 'user9@email.com', false, true, current_timestamp, 'User', 'Nine'),
+       ('user10', 'password10', false, 'user10@email.com', false, true, current_timestamp, 'User', 'Ten'),
+       ('user11', 'password11', false, 'user11@email.com', false, true, current_timestamp, 'User', 'Eleven'),
+       ('user12', 'password12', false, 'user12@gmail.com', false, true, current_timestamp, 'User', 'Twelve'),
+       ('user13', 'password13', false, 'user13@gmail.com', false, true, current_timestamp, 'User', 'Thirteen'),
+       ('user14', 'password14', false, 'user14@gmail.com', false, true, current_timestamp, 'User', 'Fourteen'),
+       ('user15', 'password15', false, 'user15@gmail.com', false, true, current_timestamp, 'User', 'Fifteen'),
+       ('user16', 'password16', false, 'user16@gmail.com', false, true, current_timestamp, 'User', 'Sixteen'),
+       ('user17', 'password17', false, 'user17@gmail.com', false, true, current_timestamp, 'User', 'Seventeen'),
+       ('user18', 'password18', false, 'user18@gmail.com', false, true, current_timestamp, 'User', 'Eigtheen'),
+       ('user19', 'password19', false, 'user19@gmail.com', false, true, current_timestamp, 'User', 'Nineteen'),
+       ('user20', 'password20', false, 'user20@gmail.com', false, true, current_timestamp, 'User', 'Twenty'),
+       ('user21', 'password21', false, 'user21@gmail.com', false, true, current_timestamp, 'User', 'Twenty-one'),
+       ('user22', 'password22', false, 'user22@gmail.com', false, true, current_timestamp, 'User', 'Twenty-two'),
+       ('user23', 'password23', false, 'user23@gmail.com', false, true, current_timestamp, 'User', 'Twenty-three'),
+       ('user24', 'password24', false, 'user24@gmail.com', false, true, current_timestamp, 'User', 'Twenty-four');
+
+-- Inserting data into campaigns_userprofile table
+INSERT INTO campaigns_userprofile (user_id, metamask_wallet_address)
+VALUES 
+       ((SELECT id FROM auth_user WHERE username='user5'), '0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf'),
+       ((SELECT id FROM auth_user WHERE username='user6'), '0x2B5AD5c4795c026514f8317c7a215E218DcCD6cF'),
+       ((SELECT id FROM auth_user WHERE username='user7'), '0x62b4c5e8f0239c64d2e5137a3b6e4d252b4fa6b4'),
+       ((SELECT id FROM auth_user WHERE username='user8'), '0x5ec4a9bbafe57c0160a5a68612b4f652d5a1b759'),
+       ((SELECT id FROM auth_user WHERE username='user9'), '0x37c8f5c64b5699e5db3b74ddc1ff27f4ca50b3a9'),
+       ((SELECT id FROM auth_user WHERE username='user10'), '0xa6e1c4c3d02c9b812a19cb4e44da18d8e1b46c95'),
+       ((SELECT id FROM auth_user WHERE username='user11'), '0x39242e616f43282f5d0794e4e586a87276f2f6f5'),
+       ((SELECT id FROM auth_user WHERE username='user12'), '0xf4f6a2f31e41bf6e1a200bf5571dd6613d8f2e8b'),
+       ((SELECT id FROM auth_user WHERE username='user13'), '0x392eb657bfc8a5a3b9a2571b9b9847c8d4c0aec7'),
+       ((SELECT id FROM auth_user WHERE username='user14'), '0x382b1d5d5f8f1e41bf6e1a200bf5571dd6613d1e'),
+       ((SELECT id FROM auth_user WHERE username='user15'), '0x492f2f3f31e41bf6e1a200bf5571dd6613d8f2e8'),
+       ((SELECT id FROM auth_user WHERE username='user16'), '0x594b1d5d5f8f1e41bf6e1a200bf5571dd6613d2f'),
+       ((SELECT id FROM auth_user WHERE username='user17'), '0x692f1f5d5f8f1e41bf6e1a200bf5571dd6613d3e'),
+       ((SELECT id FROM auth_user WHERE username='user18'), '0x792f2f3f31e41bf6e1a200bf5571dd6613d8f2f8'),
+       ((SELECT id FROM auth_user WHERE username='user19'), '0x892b1d5d5f8f1e41bf6e1a200bf5571dd6613d3f'),
+       ((SELECT id FROM auth_user WHERE username='user20'), '0x892f1f5d5f8f1e41bf6e1a200bf5571dd6613d6e'),
+       ((SELECT id FROM auth_user WHERE username='user21'), '0x992f1f5d5f8f1e41bf6e1a200bf5571dd6613d7e'),
+       ((SELECT id FROM auth_user WHERE username='user22'), '0xa92f1f5d5f8f1e41bf6e1a200bf5571dd6613d8e'),
+       ((SELECT id FROM auth_user WHERE username='user23'), '0x917bea7e7db48d349470f95b65b9226a50fdfe26'),
+       ((SELECT id FROM auth_user WHERE username='user24'), '0xa11fdd9c1c1e8f7d3386567e1b45577509ac8fe4');
+
+-- Inserting data into campaigns_campaign table
+INSERT INTO campaigns_campaign (user_id, title, description, goal_amount, raised_amount, web3_raised_amount, deadline, is_active, created_at, updated_at, category) 
+VALUES 
+       ((SELECT id FROM auth_user WHERE username='user5'), 'Project Tiger Protection', 'Project Tiger Protection is dedicated to protecting and preserving tiger populations in the wild. Through education, advocacy, and direct action, we work to stop the destruction of these magnificent creatures'' habitat and the illegal wildlife trade that threatens their survival. With your help, we can ensure that tigers have a future in the wild.', 150000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'AN'),
+       ((SELECT id FROM auth_user WHERE username='user6'), 'Local Small Business Support', 'Local Small Business Support is a fund dedicated to supporting local small businesses that have been affected by recent economic changes. This fund will provide grants to businesses for them to continue their operations and keep their doors open. These businesses are the backbone of our local economy and community. They provide jobs, support local economies, and contribute to the culture and character of our neighborhoods. With your donation, we can help these businesses weather these difficult times.', 200000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'BU'),
+       ((SELECT id FROM auth_user WHERE username='user7'), 'Community Center Renovation', 'Our local community center has been the heart and soul of our town for decades. It has been a place for meetings, parties, and other events. However, due to years of wear and tear, it is in dire need of renovation. The estimated cost for this renovation is $300,000. Help us bring our community center back to life!', 300000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'CO'),
+       ((SELECT id FROM auth_user WHERE username='user8'), 'Art Supplies for Schools', 'Creative expression is a fundamental part of human experience. It is especially crucial for children as it significantly contributes to their mental and emotional growth. Unfortunately, not all schools have the resources to provide art supplies to their students. This is where we come in. Our goal is to raise $40,000 to purchase art supplies for schools in need. Help us nurture the creativity of these children!', 40000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'CR'),
+       ((SELECT id FROM auth_user WHERE username='user9'), 'Support for Adult Education', 'The purpose of this campaign is to raise funds for adult education programs. These programs are crucial to help adults acquire new skills, improve their literacy, or change careers. Our goal is to raise $60,000 to fund these programs for a year. Join us in creating a brighter future for adults seeking education!', 60000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'ED'),
+       ((SELECT id FROM auth_user WHERE username='user10'), 'Emergency Relief for Wildfire Victims', 'Our state has been hit by the most devastating wildfire in its history. Thousands of people have lost their homes and belongings. The aim of this campaign is to raise funds to provide immediate relief to those affected by this disaster. Our goal is to raise $500,000. Your contribution can help provide emergency shelter, food, and medical aid to the victims.', 500000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'EM'),
+       ((SELECT id FROM auth_user WHERE username='user11'), 'Musical Festival Fundraiser', 'We plan to host a city-wide music festival to celebrate diversity and culture. The event will feature local and international artists, food vendors, and creative installations. We need to raise $150,000 for this large-scale event. Help us in bringing our community together with music!', 150000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'EV'),
+       ((SELECT id FROM auth_user WHERE username='user12'), 'Church Renovation Project', 'Our church needs significant renovations to maintain its structural integrity and to keep providing a safe space for our congregation. We aim to raise $100,000 for this renovation project. Your contribution can help us restore this historical and spiritual place.', 100000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'FA'),
+       ((SELECT id FROM auth_user WHERE username='user13'), 'Support for the Johnson Family', 'After an unfortunate accident, the Johnson family has been facing financial hardships. They need to raise $75,000 to cover medical bills and living expenses while Mr. Johnson recovers. Lets show them they are not alone in this struggle. Every little bit helps!', 75000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'FM'),
+       ((SELECT id FROM auth_user WHERE username='user14'), 'Memorial Service for a Beloved Friend', 'Our friend John was a wonderful person who touched the lives of many. We are raising funds to organize a memorial service that honors his memory and helps everyone who knew him find closure. We aim to raise $10,000 for the service and a charitable donation in John’s name.', 10000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'FN'),
+       ((SELECT id FROM auth_user WHERE username='user15'), 'Medical Treatment for Rare Disease', 'My sister has been diagnosed with a rare disease that requires specialized treatment not covered by our health insurance. We need to raise $200,000 to cover these medical expenses. Every donation brings us closer to getting the medical help she needs.', 200000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'MD'),
+       ((SELECT id FROM auth_user WHERE username='user16'), 'Help With Monthly Bills After Job Loss', 'I recently lost my job due to company-wide layoffs and am struggling to pay my monthly bills while I search for new employment. I aim to raise $5000 to help cover these expenses for the next few months. Any support would be greatly appreciated during this challenging time.', 5000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'MB'),
+       ((SELECT id FROM auth_user WHERE username='user17'), 'Honeymoon Adventure Fund', 'My partner and I are excited to embark on a month-long adventure for our honeymoon. We aim to explore multiple countries and immerse ourselves in diverse cultures. We are hoping to raise $15,000 to fund this dream honeymoon adventure. Thank you for your support!', 15000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'NW'),
+       ((SELECT id FROM auth_user WHERE username='user18'), 'Project to Preserve Local History', 'I am working on a project to preserve the local history of our town, which includes digitizing old photographs, documents, and oral histories. I need to raise $5000 to cover the cost of equipment and materials for this project.', 5000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'OT'),
+       ((SELECT id FROM auth_user WHERE username='user19'), 'Funding for Community Sports Club', 'Our community sports club provides local children with the opportunity to learn teamwork, discipline, and the value of physical health. We are raising funds to purchase new equipment and to subsidize costs for families in need. Our goal is to raise $8,000.', 8000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'SP'),
+       ((SELECT id FROM auth_user WHERE username='user20'), 'Adventure Trip to Antarctica', 'I have always dreamed of journeying to Antarctica to experience its unique wildlife and pristine landscapes. This campaign aims to raise $20,000 to cover the cost of the expedition, including travel, accommodation, and necessary gear. Your contributions will help make this dream a reality!', 20000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'TR'),
+       ((SELECT id FROM auth_user WHERE username='user21'), 'Ukraine Relief Fund', 'Ukraine is facing an ongoing crisis, and the civilians need our support. We are raising funds to provide food, shelter, medical aid, and other necessities to those impacted by the conflict. Our aim is to raise $50,000 to contribute to this cause. Thank you for your generosity.', 50000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'UR'),
+       ((SELECT id FROM auth_user WHERE username='user22'), 'Building Homes for the Homeless', 'Our mission is to assist homeless individuals by providing them with basic shelter. For this purpose, we aim to raise $30,000 to fund the building of small, efficient homes. We believe that everyone deserves a safe and decent place to live. Your contribution can make a huge difference.', 30000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'VO'),
+       ((SELECT id FROM auth_user WHERE username='user23'), 'Support Our Wishes Foundation', 'The Wishes Foundation has been committed to making dreams come true for children with life-threatening illnesses. We aim to raise $20,000 to make more wishes come true this year. With your help, we can create magical experiences for these children and give them something to look forward to.', 20000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'WI'),
+       ((SELECT id FROM auth_user WHERE username='user24'), 'Contribute to Ukraine Relief Fund', 'We are raising funds to support those affected by the recent events in Ukraine. The funds will be used for emergency relief and recovery aid. We aim to raise $50,000 to support our efforts. Every donation will make a significant difference in the lives of those affected.', 50000.00, 0.00, 0.00, '2024-12-31 23:59:59', true, current_timestamp, current_timestamp, 'UR');
+
+INSERT INTO campaigns_donation (user_id, campaign_id, amount, created_at, updated_at)
+VALUES ((SELECT id FROM auth_user WHERE username='user24'), (SELECT id FROM campaigns_campaign WHERE title='Protect Tiger Protection'), 150.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user5'), (SELECT id FROM campaigns_campaign WHERE title='Local Business Support'), 200.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user6'), (SELECT id FROM campaigns_campaign WHERE title='Community Center Renovation'), 300.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user7'), (SELECT id FROM campaigns_campaign WHERE title='Art Supplies for Schools'), 400.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user8'), (SELECT id FROM campaigns_campaign WHERE title='Support for Adult Education'), 500.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user9'), (SELECT id FROM campaigns_campaign WHERE title='Emergency Relief for Wildfire Victims'), 600.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user10'), (SELECT id FROM campaigns_campaign WHERE title='Musical Festival Fundraiser'), 700.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user11'), (SELECT id FROM campaigns_campaign WHERE title='Church Renovation Project'), 800.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user12'), (SELECT id FROM campaigns_campaign WHERE title='Support for the Johnson Family'), 900.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user13'), (SELECT id FROM campaigns_campaign WHERE title='Memorial Service for a Beloved Friend'), 1000.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user14'), (SELECT id FROM campaigns_campaign WHERE title='Medical Treatment for Rare Disease'), 1100.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user15'), (SELECT id FROM campaigns_campaign WHERE title='Help With Monthly Bills After Job Loss'), 1200.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user16'), (SELECT id FROM campaigns_campaign WHERE title='Honeymoon Adventure Fund'), 1300.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user17'), (SELECT id FROM campaigns_campaign WHERE title='Project to Preserve Local History'), 1400.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user18'), (SELECT id FROM campaigns_campaign WHERE title='Funding for Community Sports Club'), 1500.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user19'), (SELECT id FROM campaigns_campaign WHERE title='Adventure Trip to Antarctica'), 1600.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user20'), (SELECT id FROM campaigns_campaign WHERE title='Ukraine Relief Fund'), 1700.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user21'), (SELECT id FROM campaigns_campaign WHERE title='Building Homes for the Homeless'), 1800.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user22'), (SELECT id FROM campaigns_campaign WHERE title='Support Our Wishes Foundation'), 1900.00, current_timestamp, current_timestamp),
+       ((SELECT id FROM auth_user WHERE username='user23'), (SELECT id FROM campaigns_campaign WHERE title='Contribute to Ukraine Relief Fund'), 2000.00, current_timestamp, current_timestamp);
