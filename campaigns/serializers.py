@@ -27,16 +27,23 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class CampaignSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
     class Meta:
         model = Campaign
         fields = [
-            'id', 'title', 'description', 'goal_amount', 'deadline', 'category',
-            'raised_amount', 'web3_raised_amount', 'created_at', 'updated_at'
+            'id', 'user', 'title', 'description', 'goal_amount', 'deadline', 'category',
+            'raised_amount', 'web3_raised_amount', 'created_at', 'updated_at', 'is_active'
         ]
 
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user
+        validated_data['is_active'] = True
         return super(CampaignSerializer, self).create(validated_data)
+
+    def get_user(self, obj):
+        return obj.user.username
+
 
 
 class DonationSerializer(serializers.ModelSerializer):
