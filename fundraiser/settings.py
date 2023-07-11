@@ -84,12 +84,19 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
  
-DATABASE_URL=env('DATABASE_URL')
+DATABASE_URL="postgres://irrermhqroyqpi:210531bc7836f8f0d080e4f036b80771a544cc44d5705765e217e8e3c24b8bb7@ec2-3-217-146-37.compute-1.amazonaws.com:5432/d25snvnqch29ki"
 
 DATABASES = {
-    'default': 
-        dj_database_url.config('DATABASE_URL')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'campaigns',
+        'USER': 'campaigns_admin',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
