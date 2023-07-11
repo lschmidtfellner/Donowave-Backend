@@ -24,7 +24,13 @@ class CampaignViewSet(viewsets.ModelViewSet):
 class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
-    permission_classes = [IsAuthenticated]  # User must be authenticated
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsAuthenticated,]
+        else:
+            self.permission_classes = [AllowAny,]
+        return super(DonationViewSet, self).get_permissions()
 
     def perform_create(self, serializer):
         donation = serializer.save()
