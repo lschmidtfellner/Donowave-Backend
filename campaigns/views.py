@@ -21,7 +21,7 @@ class UserCreate(generics.CreateAPIView):
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticatedAndIsOwner,]  # adjust this according to your needs
+    permission_classes = [IsAuthenticatedAndIsOwner,]  
 
 class UserDonations(generics.ListAPIView):
     serializer_class = DonationSerializer
