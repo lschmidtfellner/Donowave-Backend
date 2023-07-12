@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.status import HTTP_200_OK
 from .models import Campaign, Donation
-from .permissions import IsAuthenticatedAndIsOwner
+from .permissions import IsAuthenticatedAndIsOwner, LoggedInAndReadOnly
 from .serializers import CampaignSerializer, DonationSerializer, UserSerializer
 
 class UserCreate(generics.CreateAPIView):
@@ -25,6 +25,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class UserDonations(generics.ListAPIView):
     serializer_class = DonationSerializer
+    permission_classes = [LoggedInAndReadOnly,]
 
     def get_queryset(self):
         user_id = self.kwargs['pk']  # updated here
@@ -32,6 +33,7 @@ class UserDonations(generics.ListAPIView):
 
 class UserCampaigns(generics.ListAPIView):
     serializer_class = CampaignSerializer
+    permission_classes = [LoggedInAndReadOnly,]
 
     def get_queryset(self):
         user_id = self.kwargs['pk']  # updated here
@@ -53,30 +55,26 @@ class CustomAuthToken(ObtainAuthToken):
 class CampaignViewSet(viewsets.ModelViewSet):
     queryset = Campaign.objects.all()
     serializer_class = CampaignSerializer
-
-    def get_permissions(self):
-        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
-            self.permission_classes = [IsAuthenticated,]
-        else:
-            self.permission_classes = [AllowAny,]
-        return super(CampaignViewSet, self).get_permissions()
+    permission_classes = [LoggedInAndReadOnly,]
 
 class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
-
-    def get_permissions(self):
-        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
-            self.permission_classes = [IsAuthenticated,]
-        else:
-            self.permission_classes = [AllowAny,]
-        return super(DonationViewSet, self).get_permissions()
+    permission_classes = [LoggedInAndReadOnly,]
 
     def perform_create(self, serializer):
         donation = serializer.save()
         campaign = donation.campaign
         campaign.raised_amount += donation.amount
         campaign.save()
+
+class CampaignDonations(generics.ListAPIView):
+    serializer_class = DonationSerializer
+    permission_classes = [LoggedInAndReadOnly,]
+
+    def get_queryset(self):
+        campaign_id = self.kwargs['pk']
+        return Donation.objects.filter(campaign_id=campaign_id)
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
