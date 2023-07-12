@@ -1,0 +1,11 @@
+POST https://project4-fundraiser-52c48ba180da.herokuapp.com/api/api-auth/login/
+Content-Type: application/json
+Referer: https://project4-fundraiser-52c48ba180da.herokuapp.com
+
+{
+    "username": "santiago",
+    "password": "password"
+}
+
+###
+```
