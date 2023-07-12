@@ -26,10 +26,47 @@ class UserSerializer(serializers.ModelSerializer):
         UserProfile.objects.create(user=user, **profile_data)
         return user
 
+    def update(self, instance, validated_data):
+        # Update the User fields
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+
+        # Update password if it's provided
+        password = validated_data.get('password')
+        if password:
+            instance.set_password(password)
+
+        instance.save()
+
+        # Update UserProfile fields
+        profile_data = validated_data.get('userprofile')
+        if profile_data:
+            profile = instance.userprofile
+            profile.metamask_wallet_address = profile_data.get('metamask_wallet_address', profile.metamask_wallet_address)
+            profile.save()
+
+        return instance
+
+
 class CampaignSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
     class Meta:
         model = Campaign
-        fields = '__all__'  # or list the field names if you want to be selective
+        fields = [
+            'id', 'user', 'title', 'description', 'goal_amount', 'deadline', 'category',
+            'raised_amount', 'web3_raised_amount', 'created_at', 'updated_at', 'is_active'
+        ]
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        validated_data['is_active'] = True
+        return super(CampaignSerializer, self).create(validated_data)
+
+    def get_user(self, obj):
+        return obj.user.username
+
+
 
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
