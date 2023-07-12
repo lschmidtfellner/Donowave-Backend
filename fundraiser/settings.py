@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'campaigns',
-    'corsheaders',  # Add this
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
