@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from .models import Campaign, Donation, UserProfile
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -50,6 +51,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CampaignSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
+    title = serializers.CharField(
+        validators=[UniqueValidator(queryset=Campaign.objects.all())]
+    )
 
     class Meta:
         model = Campaign
