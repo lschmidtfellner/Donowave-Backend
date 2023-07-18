@@ -12,7 +12,7 @@ from .serializers import CampaignSerializer, DonationSerializer, UserSerializer
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = []  # No permission for registration view
+    permission_classes = [] 
 
     def perform_create(self, serializer):
         user = serializer.save()
