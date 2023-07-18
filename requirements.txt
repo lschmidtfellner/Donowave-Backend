@@ -1,4 +1,13 @@
 asgiref==3.7.2
+boltons @ file:///home/conda/feedstock_root/build_artifacts/boltons_1677499911949/work
+certifi==2023.5.7
+cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1671179432479/work
+charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1678108872112/work
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1666700638685/work
+conda @ file:///Users/runner/miniforge3/conda-bld/conda_1685035207717/work
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1669907009957/work
+conda_package_streaming @ file:///home/conda/feedstock_root/build_artifacts/conda-package-streaming_1685101166527/work
+cryptography @ file:///Users/runner/miniforge3/conda-bld/cryptography-split_1685659611910/work
 dj-database-url==2.0.0
 Django==4.2.3
 django-cors-headers==4.2.0
@@ -6,9 +15,25 @@ django-environ==0.10.0
 django-heroku==0.3.1
 djangorestframework==3.14.0
 gunicorn==20.1.0
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1663625384323/work
+jsonpatch @ file:///home/conda/feedstock_root/build_artifacts/jsonpatch_1632759296524/work
+jsonpointer==2.0
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1681337016113/work
+pluggy @ file:///home/conda/feedstock_root/build_artifacts/pluggy_1687776318736/work
 psycopg2==2.9.6
 psycopg2-binary==2.9.6
+pycosat @ file:///Users/runner/miniforge3/conda-bld/pycosat_1666836597919/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1685514481738/work
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1661604839144/work
 pytz==2023.3
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1684774241324/work
+ruamel.yaml @ file:///Users/runner/miniforge3/conda-bld/ruamel.yaml_1686993970244/work
+ruamel.yaml.clib @ file:///Users/runner/miniforge3/conda-bld/ruamel.yaml.clib_1670412837369/work
 sqlparse==0.4.4
+toolz @ file:///home/conda/feedstock_root/build_artifacts/toolz_1657485559105/work
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1677948868469/work
 typing_extensions==4.7.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1686156552494/work
 whitenoise==6.5.0
+zstandard==0.19.0
